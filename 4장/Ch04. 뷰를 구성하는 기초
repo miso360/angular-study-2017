@@ -1,0 +1,515 @@
+# Ch04. 뷰를 구성하는 기초
+
+![4-2. 앵귤러에서 컴포넌트와 뷰의 관계](./image/4-2. 앵귤러에서 컴포넌트와 뷰의 관계.png)
+
+
+
+## 4.1 컴포넌트
+
+### 4.1.1 컴포넌트의 선언
+
+
+
+예제 4.1 컴포넌트 샘플코드
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'af-simple',
+  template: '<h1>Angular is awesome!!</h1>'
+})
+
+export class SimpleComponent{ }
+```
+
+​	컴포넌트 - 하나의 클래스
+
+​	Component 데코레이터 - 앵귤러가 평범한 타입스크립트 클래스를 컴포넌트로 인지할 수 있도록 하는 역할(일차적 )
+
+
+
+### 4.1.2 메타데이터
+
+> **메타데이터**(metadata)는 [데이터](https://ko.wikipedia.org/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0)(data)에 대한 데이터이다. 이렇게 흔히들 간단히 정의하지만 엄격하게는, Karen Coyle에 의하면 "어떤 목적을 가지고 만들어진 데이터 (Constructed data with a purpose)"라고도 정의한다. 가령 도서관에서 사용하는 서지기술용으로 만든 것이 그 대표적인 예이다. 지금은 온톨로지의 등장과 함께 기계가 읽고 이해할 수 있는 (Machine Actionable)한 형태의 메타데이터가 많이 사용되고 있다.
+
+​	Component 데코레이터  - 설정 정보, 메타데이터를 받는것(두번째)
+
+​	Component데코레이터로 전달할 수 있는 메타데이터의 종류는 총 18가지
+
+​	필수로 입력하여야 하는 값은 없음(단, <u>템플릿 정보와 selector</u>는 사실상 필수로 입력하여야 하는 값)
+
+
+
+#### 템플릿 정보 
+
+템플릿 정보를 메타데이터에 작성하는 방법 - template, templateUrl
+
+- template - 인라인으로 메타데이터 안에 직접 기술 하는 방법(예제 4.1참고)
+   - templateUrl - 템플릿 내용이 클 경우 템플릿을 html파일로 분리하는 것이 좋음, 템플릿을 html 파일로 분리하여 해당 파일의 경로를 데코레이터에 선언할 때 사용하는 것(예제 4.2 참고- 파일경로(상대경로))
+
+
+
+예제 4.2 templateUrl을 선언한 WelcomeMsgComponent 코드
+
+```typescript
+...
+@Component({
+  selector:'welcome-msg';
+  templateUrl: './welcome-msg.component.html',
+  styleUrls: './welcome-msg.component.css']
+})
+export class WelcomeMsgComponent implements AfterViewInit{ ... }
+```
+
+
+
+#### selector
+
+템플릿 코드 안에서 컴포넌트를 사용할 때 CSS 선택기 문법으로 요소명을 정의하기 위하여 사용
+
+상위 컴포넌트 템플릿에서 컴포넌트를 사용할때 selector참조.
+
+> xxx.component.html
+
+```html
+<div>
+	<welcome-msg></welcome-msg>  
+</div>
+```
+
+
+
+#### 기타 정보 - 예) styles, stylesUrl(6장에서 설명)
+
+- styles - 인라인으로 배열 안에 여러 스타일을 속성을 나누어 포함할 수 있음
+- stylesUrl - 여러 외부 css파일을 포함할 수 있음
+
+
+
+### 4.1.3 부트스트래핑
+
+​	브라우저에서 애플리케이션을 최초 실행할 때 진행되는 과정
+
+
+
+### 4.1.4 컴포넌트 트리 
+
+​	뷰와 컴포넌트 간의 일대일 관계(설계시부터 컴포넌트 단위로 모델링 해야함)
+
+![4-3. 컴포넌트 트리](./image/4-3. 컴포넌트 트리.png)
+
+![4-5. ToDoist 웹 애플리케이션 뷰 분할](./image/4-5. ToDoist 웹 애플리케이션 뷰 분할.png)
+
+![4-6. ToDoist 리스트 웹 애플리케이션 컴포넌트 트리](./image/4-6. ToDoist 리스트 웹 애플리케이션 컴포넌트 트리.png)
+
+![4-7. 뷰와 컴포넌트 트리 관계](./image/4-7. 뷰와 컴포넌트 트리 관계.png)
+
+
+
+## 4.2 템플릿 
+
+​	컴포넌트의 뷰를 구성하는 정보
+
+​	템플릿 선언방법
+
+​		1.컴포넌트 메타데이터 안에 인라인으로 직접작성.
+
+​		2. html파일에 작성하여 메타데이터의 templateUrl속성에 파일 경로를 포함시킴.
+
+
+
+### 4.2.1 절차적 방식과 선언적 방식
+
+절차적 프로그래밍 (procedural programming)
+
+- 뷰를 구성하는 DOM에 직접 접근하여 데이터를 노출시키거나 뷰의 상태를 가져와 일련의 로직을 처리하는 등 일일이 수행하여야 할 명령을 기술하는 방식
+
+선언형 프로그래밍(declarative programming) 
+
+- 컴포넌트와 뷰 사이에 연결 고리를 만드는 방식은 <u>뷰를 구성하는 템플릿 안에 컴포넌트와 뷰의 관계를 선언</u>
+
+  -> 컴포넌트와 뷰 사이의 종속성을 줄이는 데 도움을 줌 -> 컴포넌트와 뷰  상호 간의 분리를 이룰수 있음
+
+
+
+예제 4-4 뷰의 상태를 조회하는 절차적 방식의 코드 예시
+
+``` javascript
+//DOM API를 활용
+var isConfirmed1 = document.querySelector("#confirm-checkbox1").checked;
+var isconfirmed2 = document.querySelector("#confirm-checkbox2").checked;
+var isAllConfirmed = isConfirmed1 && isConfirmed2;
+if( isAllConfirmed ){
+  //검증에 통과하여 다음 로직 수행
+}
+
+//또는, jQuery 활용 시
+var isConfirmed1 = jQuery("#confirm-checkbox1").prop("checked");
+var isConfirmed2 = jQuery("#confirm-checkbox2").prop("checked");
+if( isAllConfirmed ){
+  //검증에 통과하여 다음 로직 수행
+}  
+```
+
+
+
+예제 4-5 앵귤러의 선언적 방식
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `
+	<label for="chk-btn">선언적 방식</label>
+	<input type="checkbox" id="confirm-checkbox1" [(ngModel)]="isConfirmed1"/>
+	<input type="checkbox" id="confirm-checkbox2" [(ngModel)]="isConfirmed2"/>
+	...
+	`,
+})
+export class AppComponent{
+  isConfirmed1: boolean;
+  isConfirmed2: boolean;
+
+  어떤_비스니스_로직을_담은_메서드(){
+  ...
+  
+  const isAllConfirmed = isConfirmed1 && isConfirmed2;
+  if( isAllConfirmed ){
+    //검증을 통과하여 다음 로직 수행
+  }
+    ...
+  }
+}
+```
+
+
+
+### 4.2.2 데이터 바인딩 
+
+​	컴포넌트와 뷰 사이에 연결 고리를 맺는 구체적인 방법
+
+​	연결고리를 맺는다 => ''바인딩한다"'고 표현
+
+![4-9. 데이터 바인딩의 방식과 종류](./image/4-9. 데이터 바인딩의 방식과 종류.png)
+
+
+
+#### 단방향 바인딩 
+
+​	 삽입식, 프로퍼티 바인딩, 이벤트 바인딩
+
+
+
+##### 삽입식(interpolation)
+
+ 	 문자열로 변환될 수 있는 값을 뷰에 바인딩함.  
+
+​	이중 중괄호({{}}) 안에 최종적으로 문자열로 반환되는 내용을 넣음
+
+
+
+예제4-6 삽입식
+
+```typescript
+<div>{{ contents }}</div>
+<textarea>{{ getSomeText() }}</textarea>
+<a href ="{{ someLink + '?who=angular' }}">link</a>
+<p> 1 + myVal = {{ 1+ myVal }}</p>
+```
+
+
+
+유의
+
+1. 템플릿 표현식의 유효 컨텍스트는 컴포넌트다.
+
+2. 템플릿 표현식에는 부수효과(Side Effect)를 일으키는 복잡한 수식은 넣지 않는다.
+
+   ​
+
+##### 프로퍼티 바인딩
+
+​	컴포넌트에서 DOM의 프로퍼티로 값을 바인딩함.
+
+```
+[DOM 프로퍼티] = "템플릿 표현식"
+```
+
+​	
+
+예제 4-7 프로퍼티 바인딩
+
+```typescript
+<p [textContent]="contents"></p>
+<img [src]='/some/image.jpg' [width]='10*20'>
+<img [src]='someImgUrl' width='128'>
+<img [src]="{{someImgUrl}}" width='128'>  
+```
+
+
+
+##### 이벤트 바인딩
+
+​	뷰에서 발생하는 이벤트를 처리할 로직을 바인딩함. 
+
+​	왼쪽에 괄호로 이벤트 이름을 감싼 후 오른쪽에 이벤트 발생시 실행할 템플릿 문장을 작성함.
+
+​	이벤트 대상 - click, keyup등 DOM의 이벤트 이름(https://developer.mozilla.org/en-US/docs/Web/Events)
+
+```
+(이벤트 대상) = "템플릿 문장"
+```
+
+
+
+예제 4-9 이벤트 바인딩
+
+```typescript
+<button type="button" (click) = "confirm()">확인</button>
+<div (mousemove)="printPosition($event)"></div>
+<input type="text" (keup)="myStr = $event.target.value" />
+<button type="button" (click)="clicked = true; callEvent($event)">확인</button>
+```
+
+
+
+#### 양방향 바인딩
+
+​	뷰와 컴포넌트의 상태 변화를 상호 간에 반영해 줌.
+
+
+
+예제 4-10 양방향 바인딩 예제
+
+```typescript
+<input type="text" [(ngModel)] ="myData" />
+<select [(ngModel)] = "mySelection">
+  <option value="A"> A value</option>
+  <option value="B"> B value</option>
+  <option value="C"> C value</option>
+  ...
+</select>  
+```
+
+
+
+### 4.2.3 지시자
+
+#### 지시자의 개념
+
+​	컴포넌트 = 지시자 ???
+
+```javascript
+export interface Component extends Directive
+```
+
+
+
+##### 지시자(directive)
+
+​	DOM을 다루기 위한 모든 것	
+
+```네이버 영어사전
+지시자 (directive)
+- (공식적인) 지시[명령]
+- A directive is an official instruction that is given by someone in authority.
+```
+
+```표준국어대사전
+지시
+1. 가리켜 보임
+2. 일러서 시킴. 또는 그 내용
+```
+
+
+
+![4-11. 지시자가 포함된 컴포넌트 트리](./image/4-11. 지시자가 포함된 컴포넌트 트리.png)
+
+
+
+
+
+#### 구조지시자 
+
+​	DOM요소를 추가하거나 삭제하는 등 DOM트리를 동적으로 조작하여 화면의 구조를 변경할때 사용하는 지시자
+
+​	NgIf, NgFor, NgSwitch
+
+
+
+##### NgIf 
+
+​	DOM을 조건에 따라 노출 하거나 제거할 때 사용하는 지시자.
+
+​	DOM의 속성에 *ngIf를 선언한 후 불리언 값을 주면 됨.
+
+
+
+예제 4-13 NgIf 지시자
+
+```typescript
+<div>
+  <button type="button" (click)="isShow" = !isShow">전환</button>	
+  <label *ngIf="isShow; else hiding">You are special!</label>
+    <ng-template #hiding>
+    	<label>I'm so depressed</label>
+    </ng-template>
+</div>
+        
+<div *ngIf ="member">
+    <p>Name : {{member.name}}</p>
+    <p>Email: {{member.email}}</p>
+</div>    
+```
+
+실행 : http://bit.ly/hb-af-ng-if
+
+
+
+##### NgFor
+
+​	배열 형태의 모델을 DOM에 반복 표현할 때 사용하는 지시자
+
+
+
+예제 4-14 NgFor지시자
+
+```typescript
+<ul>
+  	<li *ngFor = "let animal of animals; let idx = index">{{ idx + 1}} {{animal}}</li>
+```
+
+실행 : http://bit.ly/hb-af-ng-for
+
+
+
+##### NgSwitch
+
+​	조건에 따라 DOM을 보여 주거나 삭제하는 기능을 갖춘 지시자(DOM에서 스위치-케이스 문법을 사용하는 것과 같음)
+
+
+
+예제 4-15 NgSwitch 지시자
+
+```typescript
+<span [mgSwitch]="animal">
+  <span *ngSwitchCase ="'Dog'">멍멍</span>
+  <span *ngSwitchCase ="'Cat'">야옹</span>
+  <span *ngSwitchCase ="'Cock'">꼬끼오</span>
+  <span *ngSwitchDefault>에헴!</span>
+</span>
+```
+
+실행 : http://bit.ly/hb-af-ng-switch
+
+
+
+#### 속성지시자
+
+​	지시자가 선언된 DOM의 모습이나 동작을 조작하는데 사용하는 지시자
+
+​	NgClass, NgStyle
+
+
+
+##### NgClass
+
+​	DOM의 class 속성을 동적으로 주는 데 사용하는 지시자
+
+
+
+##### NgStyle
+
+​	프로퍼티 바인딩으로 하기 불편한 여러 스타일 요소를 동적으로 변경하고 싶을 때 사용
+
+
+
+### 4.2.4 파이프 
+
+​	뷰에 노출할 데이터를 간단하게 변환하거나 가공할때 사용
+
+​	DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, PercentPipe
+
+​	참고: https://angular.io/docs/ts/latest/api/
+
+
+
+#### 커스텀 파이프 
+
+​	
+
+예제 4-17 커스텀 파이프 : HonorPipe
+
+```typescript
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'honor'})
+export class HonorPipe implements PipeTransform {
+  transform(value: string): string{
+    return '${value}님';
+  }
+}
+```
+
+
+
+예제 4-19 커스텀 파이프 : GreekMarkerPipe
+
+```typescript
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'geekMark'})
+export class GeekMarkerPipe implements PipeTransform {
+  transform(value: string, level: string): string{
+    switch (level){
+      case 'A':
+        return 'Oh Geek! ${value}';
+      case 'I':
+        return 'Good man, ${value}';
+      case 'B':
+      default:
+        return 'Novice ${value}';
+    }
+    return '${value}님';
+  }
+}
+```
+
+
+
+예제 4-20 Pipe에 인자를 전달
+
+```typescript
+<p name="member-name">{{ myName | uppercase | honor }}</p>
+<p name="member-name">{{ myName | uppercase | honor | geekMark}}</p>
+<p name="member-name">{{ myName | uppercase | honor | geekMark:'A'}}</p>
+```
+
+
+
+자바(JSP)에서는 비슷한 기능을 메소드 호출로 할 수 있다.
+
+```jsp
+<p name="member-name"><%=myName.upperCase().honor().geekMark()%></p>
+```
+
+![4-13. Pipe 조합 과정 ](./image/4-13. Pipe 조합 과정 .png)
+
+실행 : http://bit.ly/hb-af-pipe
+
+
+
+## 4.3 마치며
+
+- 앵귤러 애플리케이션은 뷰를 컴포넌트 단위로 설계하고 구현한다.
+- 컴포넌트는 뷰를 구성할 정보인 템플릿을 반드시 가지고 있다.
+- Component 데코레이터에 메타데이터를 선언하면 컴포넌트를 만들 수 있다
+- 컴포넌트는 반드시 모듈에 등록하여야 사용할 수 있다.
+- 앵귤러 애플리케이션은 컴포넌트가 모여 하나의 트리를 구축한다.
+- 템플릿은 표준 HTML과 앵귤러 고유의 문법으로 작성하며 뷰를 렌더링할 정보를 담고 있다
+- 템플릿에 선언적으로 컴포넌트와 뷰의 관계를 선언한다.
+- 데이터와 이벤트의 흐름은 데이터 바인딩을 통하여 컴포넌트와 뷰의 관계를 선언한다.
+- 뷰의 동적인 요소와 부가적인 기능은 구조 지시자와 속성 지시자를 사용하여 템플릿을 더욱 풍성하게 만든다.
+- 뷰에 노출할 데이터가 있을 때는 파이프를 사용할 수 있다. 
