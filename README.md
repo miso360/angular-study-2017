@@ -4,6 +4,7 @@ angular-study-2017
 
 ## 목표
   - Angular 학습( [앵귤러 첫걸음, 한빛미디어](http://book.naver.com/bookdb/book_detail.nhn?bid=12096305) )
+  - [예제코드 Github/hb-angular-first](https://github.com/not-for-me/hb-angular-first)
 
 ## 스터디 참여자
   - 박태환, 홍길현, 류주미, 황은주, 문성욱, 박순현, 배명진, 김진솔
