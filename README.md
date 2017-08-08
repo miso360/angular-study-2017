@@ -4,7 +4,7 @@ angular-study-2017
 
 ## 목표
   - Angular 학습( [앵귤러 첫걸음, 한빛미디어](http://book.naver.com/bookdb/book_detail.nhn?bid=12096305) )
-  - [예제코드 Github/hb-angular-first](https://github.com/not-for-me/hb-angular-first)
+  - [예제코드 Github/hb-angular-first](https://github.com/not-for-me/hb-angular-first)
 
 ## 스터디 참여자
   - 박태환, 홍길현, 류주미, 황은주, 문성욱, 박순현, 배명진, 김진솔
@@ -32,5 +32,8 @@ angular-study-2017
    - 견고한 애플리케이션 만들기 (박순현)
    - 컴포넌트 고급 (홍길현)
 
- 4주차 스터디: 8/5
+ 4주차 스터디: 8/5 7명 참석 8/5
    - HTTP 통신과 RxJS (황은주)
+
+ 5주차 스터디: 8/19
+   - 폼 다루기  (문석욱)
