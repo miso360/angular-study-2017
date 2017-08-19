@@ -1,0 +1,26 @@
+<h4 class="p-4">{{title}}</h4>
+<form (ngSubmit)="onSubmit()" [formGroup]="prodForm" novalidate>
+  <div class="input-group pl-5 my-3">
+    <span class="input-group-addon" id="product-name">상품명</span>
+    <input type="text" formControlName="name" class="form-control"/>
+  </div>
+
+  <div class="input-group pl-5 my-3">
+    <span class="input-group-addon" id="product-price">상품가격</span>
+    <input type="number" formControlName="listPrice" class="form-control"/>
+  </div>
+
+  <div class="input-group pl-5 my-3">
+    <span class="input-group-addon" id="product-qty">상품수량</span>
+    <input type="number" formControlName="qty" class="form-control"/>
+  </div>
+
+  <div class="input-group pl-5 my-3">
+      <textarea formControlName="desc" rows="4" placeholder="상품 상세 설명" class="form-control"></textarea>
+  </div>
+
+  <div class="row m-3 p-3">
+    <button type="submit" class="btn btn-info mr-2" [disabled]="!prodForm.valid">등록</button>
+    <button type="reset" class="btn btn-warning btn=sm">초기화</button>
+  </div>
+</form>
