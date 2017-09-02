@@ -46,14 +46,14 @@ SCM에서는 부트스트랩에서 제공하는 샘플 중 대시보드 예제 U
 프로젝트를 생성
 
 ```
-ng new simple-commerce-nanager --prefix scm
+ng new simple-commerce-manager --prefix scm
 ```
 
 
 부트스트랩4와 유용한 아이콘 모음을 제공하는 Font Awesome 패키지 추가
 
 ```
-npm i --save bootstrap@4.0.0-alpah.6 font-awesome
+npm i --save bootstrap@4.0.0-alpha.6 font-awesome
 ```
 
 
