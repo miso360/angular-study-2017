@@ -48,8 +48,9 @@ src
 |  |-category
 ```
 
+**src/app/product/product.module.ts**
+
 ```typescript
-#src/app/product/product.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -75,8 +76,9 @@ Product 화면에서는 이 기능이 필요 없기 때문에 `CommonModule`을 
 
 imports 배열 안에서 기본 앵귤러 모듈과 구분되어 있음을 확인
 
+**src/app/app.module.ts**
+
 ```typescript
-#src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -144,8 +146,10 @@ app
 
 ==`ScmMainModule`에 이동시킨 컴포넌트 등록==
 
+**src/app/scm-main/scm-main.module.ts**
+
 ```typescript
-#src/app/scm-main/scm-main.module.ts
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -204,8 +208,9 @@ export class AppModule { }
 
 ==외부에서 사용하도록 하려면 `exports`로 노출시킴==
 
+**src/app/scm-main/scm-main.module.ts**
+
 ```typescript
-#src/app/scm-main/scm-main.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -225,8 +230,9 @@ export class ScmMainModule { }
 
 ==책에 누락된 내용==
 
+**src/app/app.component.ts**
+
 ```typescript
-#src/app/app.component.ts
 import { Component } from '@angular/core';
 import { SidebarMenu } from './scm-main/sidebar/sidebar.component'
 
@@ -258,8 +264,9 @@ ng g component product-management
 
 ==import 경로 수정 및 exports 선언==
 
+**src/app/product/product.module.ts**
+
 ```typescript
-#src/app/product/product.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductManagementComponent } from './product-management/product-management.component';
@@ -277,8 +284,9 @@ export class ProductModule { }
 
 ==AppComponent 템플릿에서 생성한 컴포넌트 보이게 하기==
 
+**src/app/app.component.html**
+
 ```html
-#src/app/app.component.html
 <div *ngSwitchCase="'product'">
       <scm-product-management></scm-product-management>
 </div>
@@ -304,8 +312,9 @@ ng g component page-not-found
 
 `declarations`와 `exports`의 내용이 중복되므로 공용으로 사용할 배열을 생성하여 이용
 
+**src/app/scm-main.module.ts**
+
 ```typescript
-#src/app/scm-main.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -328,8 +337,9 @@ export class ScmMainModule { }
 
 ==`app.component.html` 수정==
 
+**src/app/app.component.html**
+
 ```html
-#src/app/app.component.html
     <div *ngSwitchDefault>
       <scm-main-dashboard></scm-main-dashboard>
     </div>
