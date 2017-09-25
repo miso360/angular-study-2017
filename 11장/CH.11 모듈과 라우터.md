@@ -43,9 +43,9 @@ ng g module category
 
 ```  
 src
-|-app
-|  |-product
-|  |-category
+|--app
+|	|--product
+|	|--category
 ```
 
 **src/app/product/product.module.ts**
@@ -64,7 +64,7 @@ export class ProductModule { }
 
 ```
 
-기본적으로 `CommonModule`을 임포터 함. `CommonModule`은 템플릿에서 빈번하게 사용되는 ngIf, ngFor와 같은 기본 지시자와 내장 파이프를 담고 있기 때문에 기본으로 임포트해야 하는 모듈임
+기본적으로 `CommonModule`을 임포트 함. `CommonModule`은 템플릿에서 빈번하게 사용되는 ngIf, ngFor와 같은 기본 지시자와 내장 파이프를 담고 있기 때문에 기본으로 임포트해야 하는 모듈임
 
 지금까지는 `AppModule`에서 `BrowswerModule`을 임포트해서 사용했고 `BrowserModule`이 `CommonModule`을 내장하고 있었음
 
@@ -138,10 +138,10 @@ app/navbar, sidebar, footer -> app/scm-main/navbar, sidebar, footer
 
 ```
 app
-|-scm-main
-|    |-navbar
-|    |-sidebar
-|    |-footer
+|-- scm-main
+|		|-- navbar
+|		|-- sidebar
+|		|-- footer
 ```
 
 ==`ScmMainModule`에 이동시킨 컴포넌트 등록==
