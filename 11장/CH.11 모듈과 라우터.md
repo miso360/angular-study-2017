@@ -44,8 +44,8 @@ ng g module category
 ```  
 src
 |--app
-|	|--product
-|	|--category
+|  |--product
+|  |--category
 ```
 
 **src/app/product/product.module.ts**
@@ -139,9 +139,9 @@ app/navbar, sidebar, footer -> app/scm-main/navbar, sidebar, footer
 ```
 app
 |-- scm-main
-|		|-- navbar
-|		|-- sidebar
-|		|-- footer
+|     |-- navbar
+|     |-- sidebar
+|     |-- footer
 ```
 
 ==`ScmMainModule`에 이동시킨 컴포넌트 등록==
